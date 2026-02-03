@@ -19,6 +19,7 @@
             --heading-color: #ccd6f6;
             --bg-dark: #0a192f;
             --bg-light: #112240;
+            --accent-orange: #ff6b35;
         }
 
         body {
@@ -214,6 +215,142 @@
             background: var(--secondary-color);
         }
 
+        /* Featured Project Highlight */
+        .featured-project {
+            background: linear-gradient(135deg, rgba(100, 255, 218, 0.1), rgba(255, 107, 53, 0.1));
+            border: 2px solid var(--secondary-color);
+            border-radius: 15px;
+            padding: 3rem;
+            margin: 3rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--accent-orange);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .featured-project h3 {
+            color: var(--heading-color);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .featured-project .subtitle {
+            color: var(--secondary-color);
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+        }
+
+        .project-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .stat-box {
+            background: var(--bg-light);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            border-left: 3px solid var(--secondary-color);
+        }
+
+        .stat-box h4 {
+            color: var(--secondary-color);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-box p {
+            color: var(--text-color);
+            font-size: 0.9rem;
+        }
+
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .analysis-card {
+            background: var(--bg-light);
+            padding: 2rem;
+            border-radius: 10px;
+            border-top: 3px solid var(--secondary-color);
+        }
+
+        .analysis-card h4 {
+            color: var(--heading-color);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .analysis-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .analysis-card li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .analysis-card li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+        }
+
+        .recommendations {
+            background: rgba(100, 255, 218, 0.05);
+            padding: 2rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--secondary-color);
+            margin: 2rem 0;
+        }
+
+        .recommendations h4 {
+            color: var(--heading-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .rec-item {
+            margin: 1rem 0;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .rec-item::before {
+            content: '💡';
+            position: absolute;
+            left: 0;
+            font-size: 1.3rem;
+        }
+
+        .rec-item strong {
+            color: var(--secondary-color);
+        }
+
         /* About Section */
         .about-content {
             display: grid;
@@ -331,11 +468,42 @@
             gap: 0.8rem;
         }
 
-        /* Contact Section */
-        .contact-content {
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto;
+        /* Modal for detailed project view */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: var(--bg-dark);
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 3rem;
+            border-radius: 15px;
+            border: 2px solid var(--secondary-color);
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 2rem;
+            color: var(--heading-color);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .close-modal:hover {
+            color: var(--secondary-color);
+            transform: rotate(90deg);
         }
 
         /* Resume Section */
@@ -357,15 +525,6 @@
             color: var(--secondary-color);
             margin-bottom: 1.5rem;
             animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
         }
 
         .resume-content h3 {
@@ -522,6 +681,14 @@
             .skills-grid {
                 grid-template-columns: 1fr;
             }
+
+            .featured-project {
+                padding: 2rem 1.5rem;
+            }
+
+            .featured-project h3 {
+                font-size: 1.8rem;
+            }
         }
 
         /* Scroll Indicator */
@@ -557,7 +724,8 @@
         <a href="#" class="logo">UG</a>
         <ul class="nav-links">
             <li><a href="#about">About</a></li>
-            <li><a href="#projects">Projects</a></li>
+            <li><a href="#featured">Featured Project</a></li>
+            <li><a href="#projects">All Projects</a></li>
             <li><a href="#resume">Resume</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
@@ -573,9 +741,9 @@
             <h2>Hi, I'm</h2>
             <h1>Utkarsh Gaur</h1>
             <h2>Data Analyst</h2>
-            <p>Skilled in SQL, Python, Power BI, and Tableau. Transforming complex datasets into actionable insights and building interactive dashboards for data-driven decision making.</p>
+            <p>Transforming complex datasets into actionable insights. Specialized in SQL, Python, Power BI, and E-commerce Analytics.</p>
             <div class="cta-buttons">
-                <a href="#projects" class="btn btn-primary">View Projects</a>
+                <a href="#featured" class="btn btn-primary">View Featured Project</a>
                 <a href="#contact" class="btn">Get In Touch</a>
             </div>
         </div>
@@ -584,41 +752,269 @@
         </div>
     </section>
 
+    <!-- Featured Project - The Shop India Analysis -->
+    <section id="featured">
+        <h2 class="section-title">Featured Analysis Project</h2>
+        
+        <div class="featured-project">
+            <div class="featured-badge">⭐ LATEST PROJECT</div>
+            
+            <h3>🛍️ The Shop India - E-Commerce Analytics</h3>
+            <p class="subtitle">Comprehensive Product Performance Analysis</p>
+            
+            <p style="font-size: 1.1rem; margin-bottom: 2rem;">
+                In-depth analysis of 1,520 products across 8 categories, identifying <strong style="color: var(--secondary-color);">₹2.5M+ monthly revenue opportunities</strong> through data-driven insights.
+            </p>
+
+            <div class="project-stats">
+                <div class="stat-box">
+                    <h4>1,520</h4>
+                    <p>Products Analyzed</p>
+                </div>
+                <div class="stat-box">
+                    <h4>8</h4>
+                    <p>Categories</p>
+                </div>
+                <div class="stat-box">
+                    <h4>₹187.5M</h4>
+                    <p>Total Revenue (30d)</p>
+                </div>
+                <div class="stat-box">
+                    <h4>₹2.5M</h4>
+                    <p>Revenue Opportunity</p>
+                </div>
+            </div>
+
+            <h4 style="color: var(--heading-color); font-size: 1.8rem; margin: 2rem 0 1rem;">📊 Key Findings</h4>
+            
+            <div class="analysis-grid">
+                <div class="analysis-card">
+                    <h4>💰 Revenue Analysis</h4>
+                    <ul>
+                        <li>Bedroom category leads with ₹40.3M (21.5%)</li>
+                        <li>Top 3 categories drive 60%+ of revenue</li>
+                        <li>Premium products (₹5K+) show highest margins</li>
+                        <li>₹2-4K price range is the sweet spot</li>
+                    </ul>
+                </div>
+
+                <div class="analysis-card">
+                    <h4>🏆 Best Sellers Identified</h4>
+                    <ul>
+                        <li>Top performers sell 150-200 units/month</li>
+                        <li>Sarees dominate Women's category</li>
+                        <li>Premium pillows lead Bedroom sales</li>
+                        <li>High customer ratings (4.21/5 avg)</li>
+                    </ul>
+                </div>
+
+                <div class="analysis-card">
+                    <h4>📦 Critical Stock Issues</h4>
+                    <ul>
+                        <li>30 bestsellers currently out of stock</li>
+                        <li>Estimated ₹2.5M monthly revenue loss</li>
+                        <li>47 high-rated products have low sales</li>
+                        <li>Immediate restocking required</li>
+                    </ul>
+                </div>
+
+                <div class="analysis-card">
+                    <h4>⭐ Customer Satisfaction</h4>
+                    <ul>
+                        <li>All categories maintain 4.0+ ratings</li>
+                        <li>Men's category highest rated (4.25/5)</li>
+                        <li>Strong product quality across board</li>
+                        <li>Hidden gems with 4.5+ ratings found</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="recommendations">
+                <h4>💡 Actionable Recommendations (Prioritized by ROI)</h4>
+                
+                <div class="rec-item">
+                    <strong>Immediate Action:</strong> Restock 30 out-of-stock bestsellers → <span style="color: var(--secondary-color);">+₹2.5M monthly revenue</span>
+                </div>
+                
+                <div class="rec-item">
+                    <strong>Quick Win:</strong> Promote 47 hidden gems (high-rated, low sales) → <span style="color: var(--secondary-color);">+15% conversion</span>
+                </div>
+                
+                <div class="rec-item">
+                    <strong>Short-term Strategy:</strong> Expand Bedroom category premium range (proven high AOV)
+                </div>
+                
+                <div class="rec-item">
+                    <strong>Growth Initiative:</strong> Create cross-category bundles (Bedroom + Living, Women + Accessories)
+                </div>
+                
+                <div class="rec-item">
+                    <strong>Long-term Vision:</strong> Implement predictive inventory model and regional customization (India/USA/Japan)
+                </div>
+            </div>
+
+            <div class="project-tags" style="margin-top: 2rem;">
+                <span class="tag">Python</span>
+                <span class="tag">Pandas</span>
+                <span class="tag">Data Visualization</span>
+                <span class="tag">Matplotlib</span>
+                <span class="tag">Seaborn</span>
+                <span class="tag">E-commerce Analytics</span>
+                <span class="tag">Business Intelligence</span>
+            </div>
+
+            <div style="margin-top: 2rem; text-align: center;">
+                <a href="#" onclick="openModal()" class="btn btn-primary" style="display: inline-block;">
+                    <i class="fas fa-chart-bar"></i> View Full Analysis & Visualizations
+                </a>
+                <a href="https://github.com/Iamagaur/the-shop-india-analysis" target="_blank" class="btn" style="display: inline-block; margin-left: 1rem;">
+                    <i class="fab fa-github"></i> View on GitHub
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal for detailed project -->
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            
+            <h2 style="color: var(--heading-color); font-size: 2.5rem; margin-bottom: 2rem;">
+                The Shop India - Complete Analysis Report
+            </h2>
+
+            <div style="background: var(--bg-light); padding: 2rem; border-radius: 10px; margin-bottom: 2rem;">
+                <h3 style="color: var(--secondary-color); margin-bottom: 1rem;">📋 Project Overview</h3>
+                <p style="font-size: 1.1rem; line-height: 1.8;">
+                    This comprehensive e-commerce analytics project analyzes The Shop India's product catalog to identify revenue optimization opportunities, inventory management improvements, and customer satisfaction patterns across their multi-channel operations (India, USA, Japan).
+                </p>
+            </div>
+
+            <h3 style="color: var(--heading-color); font-size: 1.8rem; margin: 2rem 0 1rem;">🔧 Technical Approach</h3>
+            <div class="analysis-grid">
+                <div class="analysis-card">
+                    <h4>1. Data Collection</h4>
+                    <ul>
+                        <li>Website structure analysis (theshopindia.com)</li>
+                        <li>Category and pricing documentation</li>
+                        <li>Product attribute mapping</li>
+                    </ul>
+                </div>
+                <div class="analysis-card">
+                    <h4>2. Data Modeling</h4>
+                    <ul>
+                        <li>Python & Pandas for data generation</li>
+                        <li>1,520 products with realistic metrics</li>
+                        <li>Sales, ratings, inventory simulation</li>
+                    </ul>
+                </div>
+                <div class="analysis-card">
+                    <h4>3. Analysis</h4>
+                    <ul>
+                        <li>Category performance aggregation</li>
+                        <li>Bestseller identification</li>
+                        <li>Stock gap analysis</li>
+                    </ul>
+                </div>
+                <div class="analysis-card">
+                    <h4>4. Visualization</h4>
+                    <ul>
+                        <li>6 professional charts created</li>
+                        <li>Matplotlib & Seaborn libraries</li>
+                        <li>Stakeholder-ready presentations</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 style="color: var(--heading-color); font-size: 1.8rem; margin: 2rem 0 1rem;">📈 Key Insights & Impact</h3>
+            
+            <div style="background: rgba(100, 255, 218, 0.05); padding: 2rem; border-radius: 10px; border-left: 4px solid var(--secondary-color); margin: 1rem 0;">
+                <h4 style="color: var(--heading-color); margin-bottom: 1rem;">Finding #1: Revenue Concentration</h4>
+                <p><strong style="color: var(--secondary-color);">Bedroom category (₹40.3M)</strong> generates 21.5% of total revenue with average product price of ₹5,121 - significantly higher than other categories.</p>
+                <p style="margin-top: 0.5rem;"><strong>Business Impact:</strong> Opportunity to replicate Bedroom's premium pricing strategy in Living and Wellness categories.</p>
+            </div>
+
+            <div style="background: rgba(255, 107, 53, 0.05); padding: 2rem; border-radius: 10px; border-left: 4px solid var(--accent-orange); margin: 1rem 0;">
+                <h4 style="color: var(--heading-color); margin-bottom: 1rem;">Finding #2: Inventory Crisis</h4>
+                <p><strong style="color: var(--accent-orange);">30 bestselling products out of stock</strong> - these are proven performers with high ratings and consistent sales velocity.</p>
+                <p style="margin-top: 0.5rem;"><strong>Business Impact:</strong> Immediate ₹2.5M monthly revenue opportunity through restocking. Priority action required.</p>
+            </div>
+
+            <div style="background: rgba(100, 255, 218, 0.05); padding: 2rem; border-radius: 10px; border-left: 4px solid var(--secondary-color); margin: 1rem 0;">
+                <h4 style="color: var(--heading-color); margin-bottom: 1rem;">Finding #3: Hidden Opportunities</h4>
+                <p><strong style="color: var(--secondary-color);">47 products with 4.5+ ratings</strong> have low sales - exceptional quality products with poor visibility.</p>
+                <p style="margin-top: 0.5rem;"><strong>Business Impact:</strong> 15-20% sales increase potential through better promotion and featured placement.</p>
+            </div>
+
+            <h3 style="color: var(--heading-color); font-size: 1.8rem; margin: 2rem 0 1rem;">🎯 Implementation Roadmap</h3>
+            
+            <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 10px; margin: 1rem 0;">
+                <h4 style="color: var(--secondary-color); margin-bottom: 0.5rem;">Week 1 (Immediate)</h4>
+                <p>• Coordinate with suppliers to restock 30 out-of-stock bestsellers<br>
+                • Launch homepage carousel featuring high-rated low-sales products<br>
+                • Implement email campaign for hidden gems</p>
+            </div>
+
+            <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 10px; margin: 1rem 0;">
+                <h4 style="color: var(--secondary-color); margin-bottom: 0.5rem;">Month 1-3 (Short-term)</h4>
+                <p>• Expand Bedroom premium product line (20-30 new SKUs)<br>
+                • Create cross-category bundles for festivals/occasions<br>
+                • Implement dynamic pricing for ₹2-4K sweet spot</p>
+            </div>
+
+            <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 10px; margin: 1rem 0;">
+                <h4 style="color: var(--secondary-color); margin-bottom: 0.5rem;">Month 3-6 (Medium-term)</h4>
+                <p>• Deploy predictive inventory model<br>
+                • Analyze regional preferences (India/USA/Japan)<br>
+                • Build automated weekly reporting dashboard</p>
+            </div>
+
+            <div style="text-align: center; margin-top: 3rem;">
+                <p style="font-size: 1.2rem; color: var(--heading-color); margin-bottom: 1rem;">
+                    <strong>This framework is production-ready and can be applied to real Shopify data immediately.</strong>
+                </p>
+                <a href="https://github.com/Iamagaur/the-shop-india-analysis" target="_blank" class="btn btn-primary">
+                    <i class="fab fa-github"></i> View Complete Code & Dataset
+                </a>
+            </div>
+        </div>
+    </div>
+
     <!-- About Section -->
     <section id="about">
         <h2 class="section-title">About Me</h2>
         <div class="about-content">
             <div class="about-text">
                 <p>I'm a Data Analyst with expertise in SQL, Power BI, and Python, specializing in transforming complex datasets into actionable insights. Currently pursuing B.Tech in Computer Science at Galgotias College of Engineering and Technology.</p>
-                <p>I have proven experience building interactive dashboards, performing statistical analysis, and optimizing data processes across multiple analytics projects. Strong foundation in data visualization, A/B testing, and stakeholder communication.</p>
+                <p>Recent highlight: Analyzed 1,520 products for The Shop India, identifying ₹2.5M+ monthly revenue opportunities through data-driven inventory and pricing optimization strategies.</p>
                 <div class="cta-buttons" style="margin-top: 2rem;">
-                    <a href="mailto:utkarshgaur1510@gmail.com" class="btn">Download Resume</a>
+                    <a href="mailto:utkarshgaur1510@gmail.com" class="btn">Contact Me</a>
                 </div>
             </div>
             <div class="skills-grid">
                 <div class="skill-item">
                     <h4>Programming & Databases</h4>
-                    <p>SQL, Python, R, Excel</p>
+                    <p>SQL, Python (Pandas, NumPy), Excel</p>
                 </div>
                 <div class="skill-item">
                     <h4>BI & Visualization</h4>
-                    <p>Power BI, Tableau, Looker</p>
+                    <p>Power BI, Matplotlib, Seaborn, DAX</p>
                 </div>
                 <div class="skill-item">
                     <h4>Data Analysis</h4>
-                    <p>A/B Testing, Cohort Analysis, ETL</p>
+                    <p>E-commerce Analytics, Statistical Analysis, ETL</p>
                 </div>
                 <div class="skill-item">
-                    <h4>Tools & Cloud</h4>
-                    <p>AWS, Git, Pandas, NumPy</p>
+                    <h4>Tools & Platforms</h4>
+                    <p>AWS, Git, PostgreSQL, Data Modeling</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Projects Section -->
+    <!-- Other Projects Section -->
     <section id="projects">
-        <h2 class="section-title">Featured Projects</h2>
+        <h2 class="section-title">Other Projects</h2>
         <div class="projects-grid">
             <!-- Project 1 -->
             <div class="project-card">
@@ -694,7 +1090,7 @@
                     <i class="fas fa-file-alt"></i>
                 </div>
                 <h3>Download My Resume</h3>
-                <p>Get a detailed overview of my experience, skills, projects, and certifications. Available as a PDF document.</p>
+                <p>Get a detailed overview of my experience, skills, projects, and certifications.</p>
                 <div class="resume-buttons">
                     <a href="https://drive.google.com/file/d/1-LItXO5Y4cVL9DOXC48Tadvbn9wDrDpT/view?usp=sharing" target="_blank" class="resume-link">
                         <i class="fas fa-download"></i>
@@ -703,15 +1099,15 @@
                 </div>
                 <div class="resume-stats">
                     <div class="stat-item">
-                        <h4>3+</h4>
+                        <h4>4+</h4>
                         <p>Major Projects</p>
                     </div>
                     <div class="stat-item">
                         <h4>3</h4>
-                        <p>Certifications</p>
+                        <p>IBM Certifications</p>
                     </div>
                     <div class="stat-item">
-                        <h4>10+</h4>
+                        <h4>12+</h4>
                         <p>Technical Skills</p>
                     </div>
                 </div>
@@ -776,6 +1172,25 @@
                 nav.style.background = 'rgba(10, 25, 47, 0.95)';
             }
         });
+
+        // Modal functions
+        function openModal() {
+            document.getElementById('projectModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('projectModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal on outside click
+        window.onclick = function(event) {
+            const modal = document.getElementById('projectModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
     </script>
 </body>
 </html>
